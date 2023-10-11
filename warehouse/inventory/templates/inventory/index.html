@@ -1,0 +1,36 @@
+<h1>Warehouse Items</h1>
+
+<table border="1">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>In Stock</th>
+            <th>Image Link</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in items %}
+            <form method="post">
+                {% csrf_token %}
+                <tr>
+                    <td><input type="text" name="name" value="{{ item.name }}"></td>
+                    <td><input type="text" name="description" value="{{ item.description }}"></td>
+                    <td><input type="number" name="in_stock" value="{{ item.in_stock }}"></td>
+                    <td><input type="text" name="image_link" value="{{ item.image_link }}"></td>
+                    <td>
+                        <input type="hidden" name="item_id" value="{{ item.id }}">
+                        <button type="submit">Update</button>
+                    </td>
+                </tr>
+            </form>
+        {% endfor %}
+    </tbody>
+</table>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Add New Item</button>
+</form>

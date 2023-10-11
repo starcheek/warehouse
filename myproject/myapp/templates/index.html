@@ -1,0 +1,52 @@
+<!-- myapp/templates/index.html -->
+<style>
+    .item-container {
+        display: flex;
+        align-items: flex-start;
+        max-width: 50%;  /* Set max width to 50% of screen size */
+        margin-bottom: 20px;
+        border: 1px solid #ccc;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 10px;
+    }
+    .item-info {
+        flex: 1;
+        margin-right: 10px;
+    }
+    .item-image {
+        width: 100px;
+        height: 100px;
+        margin-left: 10px;
+    }
+    .alert {
+        padding: 10px;
+        background-color: #f44336;
+        color: white;
+        margin-bottom: 15px;
+    }
+</style>
+{% if messages %}
+    <div class="messages">
+        {% for message in messages %}
+            <div class="alert">{{ message }}</div>
+        {% endfor %}
+    </div>
+{% endif %}
+<ul style="list-style-type: none;">
+    {% for item in items %}
+        <li class="item-container">
+            <div class="item-info">
+                <strong>{{ item.name }}</strong> <br>
+                <p>{{ item.description }}</p>
+                <p>In Stock: {{ item.in_stock }}</p>
+                <!-- Add order button -->
+                <form method="post">
+                    <button type="submit" name="order" value="{{ item.id }}">Order</button>
+                </form>
+            </div>
+            <div>
+                <img class="item-image" src="{{ item.image_link }}" alt="{{ item.name }}">
+            </div>
+        </li>
+    {% endfor %}
+</ul>
